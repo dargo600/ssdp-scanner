@@ -26,17 +26,12 @@ CONFIG += c++17
 
 SOURCES += \
         main.cpp \
-        remotemain.cpp \
-        remotepanel.cpp \
-        scanssdp.cpp
+        mainwindow.cpp
 
 HEADERS += \
-        remotemain.h \
-        remotepanel.h \
-        scanssdp.h
+    mainwindow.h
 
-FORMS += \
-        remotemain.ui
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
