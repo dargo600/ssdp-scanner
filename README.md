@@ -8,13 +8,15 @@ Though other products use SSDP as well further investigation on how to use this 
 There is also a Samsung Remote ip here done in python:
 https://pypi.org/project/samsungctl/
 
-Looking at ports that were open I found on my TU7000 55
+One can scan for ports using nmap as below:
+```
 davidtu@calysto:~/work/ssdp-scanner$ nmap -Pn -p 1-65535 172.16.1.74
 Starting Nmap 7.94SVN ( https://nmap.org ) at 2025-07-09 15:54 CST
 Nmap scan report for 172.16.1.74
 Host is up (0.024s latency).
 ...
-
+```
+On my samsung I noticed that:
 Port 7678 has a sort of API service on 172.168.1.74:7678/nsservice
 This is advertised when queries are made to 239.255.255.250:1900.
 The Samsung TV IP will see these queries and send an SSDP protocol response as part of an ssdp:discover message  to be the actual http urn port that is used for nsservice as part of upnp as it is replied to queries sent to 239.255.255.250:1900 to the source port.
