@@ -64,8 +64,11 @@ void MainWindow::readPendingDatagrams(void)
     QByteArray datagram;
 
     while (udpSocket4.hasPendingDatagrams()) {
+        QHostAddress senderAddress;
+        quint16 senderPort;
         datagram.resize(qsizetype(udpSocket4.pendingDatagramSize()));
-        udpSocket4.readDatagram(datagram.data(), datagram.size());
-        receivedMessages->append(tr("\nReceived IPV4 datagram: \"%1\"").arg(datagram.constData()));
+        udpSocket4.readDatagram(datagram.data(), datagram.size(), &senderAddress, &senderPort);
+        QString senderString = "\n" + senderAddress.toString() + QStringLiteral(":%1").arg(senderPort);
+        receivedMessages->append(senderString + tr("\nData: \"%1\"").arg(datagram.constData()));
     }
 }
