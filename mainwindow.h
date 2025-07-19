@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 #pragma once
 
+#include <QTextEdit>
 #include <QtWidgets>
 #include <QtNetwork>
 #include <QtCore>
@@ -21,7 +22,7 @@ private slots:
 
 
 private:
-    QLabel *statusLabel = nullptr;
+    QTextEdit *receivedMessages = nullptr;
     QPushButton *startButton = nullptr;
     QUdpSocket udpSocket4;
     QTimer timer;
