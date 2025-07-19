@@ -66,7 +66,6 @@ void MainWindow::readPendingDatagrams(void)
     while (udpSocket4.hasPendingDatagrams()) {
         datagram.resize(qsizetype(udpSocket4.pendingDatagramSize()));
         udpSocket4.readDatagram(datagram.data(), datagram.size());
-        receivedMessages->moveCursor(QTextCursor::End);
-        receivedMessages->insertPlainText(tr("\nReceived IPV4 datagram: \"%1\"").arg(datagram.constData()));
+        receivedMessages->append(tr("\nReceived IPV4 datagram: \"%1\"").arg(datagram.constData()));
     }
 }
