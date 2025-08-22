@@ -6,6 +6,7 @@
 #include <QtWidgets>
 #include <QtNetwork>
 #include <QtCore>
+#include <QMutex>
 
 class MainWindow : public QDialog
 {
@@ -22,11 +23,14 @@ private slots:
 
 
 private:
+    void updateReceivedMessages(const QString &serverString, const quint16 serverPort, const QString &responseData);
     QTextEdit *receivedMessages = nullptr;
     QPushButton *startButton = nullptr;
     QUdpSocket udpSocket4;
     QTimer timer;
     QHostAddress groupAddress4;
+    QHash<QString, QString> receivedResponses;
+    QMutex mutex; // Mutex to protect access to serverResponses
     int messageNo = 1;
     bool receivedDatagram = false;
 

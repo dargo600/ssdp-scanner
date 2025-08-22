@@ -59,6 +59,17 @@ void MainWindow::sendDatagram(void)
     }
 }
 
+void MainWindow::updateReceivedMessages(const QString &serverString, const quint16 serverPort, const QString &responseData)
+{
+    QMutexLocker locker(&mutex);
+    if (!receivedResponses.contains(serverString)) {
+        QString senderString = serverString + QStringLiteral(":%1").arg(serverPort);
+        qDebug() << serverString << "adding\n";
+        receivedResponses.insert(serverString, responseData);
+        receivedMessages->append("\n" +senderString + "\n" + responseData + "\n");
+    }
+}
+
 void MainWindow::readPendingDatagrams(void)
 {
     QByteArray datagram;
@@ -68,7 +79,6 @@ void MainWindow::readPendingDatagrams(void)
         quint16 senderPort;
         datagram.resize(qsizetype(udpSocket4.pendingDatagramSize()));
         udpSocket4.readDatagram(datagram.data(), datagram.size(), &senderAddress, &senderPort);
-        QString senderString = "\n" + senderAddress.toString() + QStringLiteral(":%1").arg(senderPort);
-        receivedMessages->append(senderString + tr("\nData: \"%1\"").arg(datagram.constData()));
+        updateReceivedMessages(senderAddress.toString(), senderPort, datagram.constData());
     }
 }
