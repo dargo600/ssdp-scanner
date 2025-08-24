@@ -14,6 +14,7 @@ class MainWindow : public QDialog
 
 public:
     MainWindow(QWidget *parent = nullptr);
+    ~MainWindow() override;
 
 private slots:
     void readPendingDatagrams();
@@ -26,7 +27,7 @@ private:
     void updateReceivedMessages(const QString &serverString, const quint16 serverPort, const QString &responseData);
     QTextEdit *receivedMessages = nullptr;
     QPushButton *startButton = nullptr;
-    QUdpSocket udpSocket4;
+    QUdpSocket *socket4 = nullptr;
     QTimer timer;
     QHostAddress groupAddress4;
     QHash<QString, QString> receivedResponses;
