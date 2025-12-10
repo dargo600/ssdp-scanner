@@ -64,7 +64,15 @@ Thread 7 handles processEvents which would be where slots are processed and any 
 #4  0x000072cab719103b in QEventLoop::exec(QFlags<QEventLoop::ProcessEventsFlag>) () at /opt/Qt/6.9.1/gcc_64/lib/libQt6Core.so.6
 #5  0x000072cab729d95e in QThread::exec() () at /opt/Qt/6.9.1/gcc_64/lib/libQt6Core.so.6
 ```
-The remaining threads would require more research.
+This appears to only occur when using gdb.  Doing:
+```
+cat /proc/2707231/task/*/status | grep Name
+Name:	ssdpscanner
+Name:	QXcbEventQueue
+Name:	QDBusConnection
+```
+
+I see three threads which is more reasonable.
 
 
 
