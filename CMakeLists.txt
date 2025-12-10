@@ -10,8 +10,8 @@ find_package(Qt6 REQUIRED COMPONENTS Core Gui Network Widgets)
 qt_standard_project_setup(REQUIRES 6.8)
 
 qt_add_executable(ssdpscanner
-    main.cpp
-    mainwindow.cpp mainwindow.h
+    mainwindow.cpp
+    mainwindow.h
 )
 
 set_target_properties(ssdpscanner PROPERTIES
